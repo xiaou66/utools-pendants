@@ -1,0 +1,34 @@
+{
+    "id": "xiaou_05",
+    "title": "健康提醒",
+    "description": "开启后隔一段时间提醒休息",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": true,
+    "setting": {
+        "src": "setting.html",
+        "options": {
+            "width": 500,
+            "height": 400,
+            "alwaysOnTop": true,
+            "resizable": false,
+            "webPreferences": {
+                "devTools": true,
+                "preload": "preload.js"
+            }
+        }
+    },
+    "options": {
+        "width": 0,
+        "height": 0,
+        "alwaysOnTop": false,
+        "transparent": true,
+        "frame": false,
+        "resizable": false,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": true,
+            "preload": "preload.js"
+        }
+    }
+}

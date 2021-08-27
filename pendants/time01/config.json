@@ -1,0 +1,27 @@
+{
+    "id": "xiaou_01",
+    "title": "时钟挂件",
+    "description": "可以看时间的一个挂件",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": true,
+    "theme": [
+        {
+            "author": "xiaou",
+            "title": "默认主题",
+            "file": ["./js/main.js", "./css/index.css"]
+        }
+    ],
+    "options": {
+        "width": 215,
+        "height": 120,
+        "alwaysOnTop": true,
+        "transparent": true,
+        "frame": false,
+        "resizable": false,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": false
+        }
+    }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>111</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="mem">
+        <div class="card__percent">
+          <svg>
+            <defs>
+              <radialGradient id="men-gradient" cx="0%" cy="0%" r="90%" fx="50%" fy="50%">
+                <stop offset="30%"   stop-color="#7ecdb6"/>
+                <stop offset="100%" stop-color="#79d2d2"/>
+              </radialGradient>
+            </defs>
+            <circle cx='90' cy='90' r='90' id="men-circle" stroke="url(#men-gradient)"></circle>
+          </svg>
+          <div class="circle"></div>
+          <div class="circle circle__medium"></div>
+          <div class="circle circle__small"></div>
+          <div class="card__number">内存:50%</div>
+        </div>
+      </div>
+      <div class="cpu">
+        <div class="card__percent">
+          <svg>
+            <defs>
+              <radialGradient id="cpu-gradient" cx="0%" cy="0%" r="90%" fx="50%" fy="50%">
+                <stop offset="0%"   stop-color="#c8e6c6"/>
+                <stop offset="100%" stop-color="#91cd8d"/>
+              </radialGradient>
+            </defs>
+            <circle cx='90' cy='90' r='90' id="cpu-circle" stroke="url(#cpu-gradient)"></circle>
+          </svg>
+          <div class="circle"></div>
+          <div class="circle circle__medium"></div>
+          <div class="circle circle__small"></div>
+          <div class="card__number">内存:50%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../lib/jquery-3.6.0.min.js"></script>
+  <script src="../../utils/theme.js"></script>
+</body>
+</html>
+
+

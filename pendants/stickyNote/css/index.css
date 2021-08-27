@@ -1,0 +1,94 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+ul,li {
+    list-style: none;
+}
+body {
+    background: rgba(248,247,182, 0.8);
+}
+#tool {
+    height: 30px;
+    background: rgba(248,247,182, 1);
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+    grid-template-columns: 60px calc(100% - 90px) 30px;
+    padding: 0 10px;
+}
+#left, #right {
+    display: flex;
+}
+#left {
+    text-align: left;
+}
+#right {
+    text-align: right;
+}
+#center {
+    -webkit-app-region: drag;
+    height: 30px;
+}
+#colorPicker {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background: #f8f7b6;
+    border: 1px solid #2a2a2a;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+#colorPicker:hover ul {
+    display: block;
+}
+#colorPicker ul {
+    position: absolute;
+    top: 16px;
+    display: none;
+    transition: all 0.5s ease-in-out;
+    max-height: 90px;
+    overflow-y: auto;
+}
+#colorPicker ul::-webkit-scrollbar {
+    display: none;
+}
+#colorPicker ul li {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #2a2a2a;
+    margin: 2px 0;
+}
+textarea {
+    padding: 5px;
+    outline:none;
+    resize:none;
+    border: none;
+    width: 100%;
+    height: calc(100vh - 35px);
+    background: rgba(0,0,0,0);
+    font-size: 20px;
+}
+textarea::-webkit-scrollbar {
+}
+textarea::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width : 4px;  /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+textarea::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 20px;
+    box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background   : rgba(0, 0, 0, 0.5);
+}
+textarea::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    background: rgba(0,0,0,0);
+}
+.icon {
+    cursor: pointer;
+}

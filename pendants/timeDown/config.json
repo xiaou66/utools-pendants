@@ -1,0 +1,30 @@
+{
+    "id": "xiaou_04",
+    "title": "计时器",
+    "description": "普通倒计时,关闭后需要重新计时不保存数据",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": true,
+    "theme": [
+        {
+            "width": 215,
+            "height": 120,
+            "author": "xiaou",
+            "title": "默认主题",
+            "file": ["./js/main.js", "./css/index.css"]
+        }
+    ],
+    "options": {
+        "width": 215,
+        "height": 120,
+        "alwaysOnTop": true,
+        "transparent": true,
+        "frame": false,
+        "resizable": false,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": true,
+            "preload": "preload.js"
+        }
+    }
+}

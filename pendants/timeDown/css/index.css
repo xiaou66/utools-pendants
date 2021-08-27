@@ -1,0 +1,76 @@
+input, button{
+    background:none;
+    outline:none;
+    border: none;
+}
+input:focus{
+    border:none;
+}
+#countdown {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    box-shadow: 1px 1px 1px #c3c3c3;
+    background: #fffae6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-app-region: drag;
+}
+#countdown:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: '';
+    width: 195px;
+    height: 55px;
+    box-shadow: inset -3px -3px 7px #ffffff73,
+     inset 3px 3px 5px rgba(94,104,121,0.288);
+    border-radius: 10px;
+}
+#time {
+    font-size: 18px;
+    display: none;
+}
+#tool {
+    -webkit-app-region: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+#setTimeModal {
+    position: absolute;
+    -webkit-user-drag: none;
+    outline: none;
+    border: none;
+}
+#setTimeModal input {
+    border: 1px dashed rgb(158,153,147);
+    width: 20px;
+    height: 20px;
+    -webkit-app-region: none;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+#setTimeModal button {
+    font-size: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: 0.5s all ease-in-out;
+    border: 1px solid #fffae6;
+}
+#setTimeModal button:hover {
+    border: 1px solid rgb(158,153,147);
+}
+.btn {
+    -webkit-app-region: none;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,105 @@
+:root {
+  --primary-light: #39ddfa;
+  --primary: #00abdf;
+  --primary-dark: #008ada;
+  --white: #dde1e7;
+  --greyLight-1: #dde1e7;
+  --greyLight-2: #96a2b4;
+  --greyLight-3: #8391a6;
+  --greyDark: #646b8c;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+.container {
+  /* min-height: 100vh; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* background: var(--greyLight-2); */
+  transform: scale(0.55);
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.mem {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 250px;
+  min-height: 250px;
+  -webkit-app-region: drag;
+}
+
+.cpu {
+  position: absolute;
+  left: 200px;
+  top: 44px;
+  transform: scale(0.65);
+  -webkit-app-region: drag;
+}
+
+.card {
+}
+
+.card__percent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__percent svg {
+  width: 24rem;
+  height: 24rem;
+  z-index: 1;
+  transform: rotate(-270deg);
+}
+
+.card__percent svg circle {
+  fill: none;
+  stroke-linecap: round;
+  transform: translate(3rem, 3rem);
+  stroke-dasharray: 580.2;
+  stroke-dashoffset: 282.6;
+  transition: all 1s ease;
+  stroke-width: 20;
+}
+
+.card__percent .circle {
+  position: absolute;
+  width: 23rem;
+  height: 23rem;
+  border-radius: 50%;
+  box-shadow: 6px 6px 8px var(--greyLight-2), -6px -6px 8px var(--white);
+  background: var(--greyLight-1);
+}
+
+.card__percent .circle__medium {
+  width: 20.5rem;
+  height: 20.5rem;
+  box-shadow: inset 8px 8px 10px var(--greyLight-2), inset -4px -4px 8px var(--white);
+}
+
+.card__percent .circle__small {
+  width: 15.5rem;
+  height: 15.5rem;
+  box-shadow: 6px 6px 8px var(--greyLight-2), -2px -2px 8px var(--white);
+}
+
+.card__number {
+  position: absolute;
+  color: var(--greyDark);
+  font-size: 2.8rem;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../lib/lulu/css.css">
+    <style>
+        body {
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body style="padding: 30px 20px">
+    <form is="ui-form">
+        <div>
+            <label>间隔时间</label>
+            <ui-tips title="默认120分钟" data-align="left">
+                <input type="tel" id="intervalTime" class="ui-input" size="20" name="tel" required onkeyup="limitNumber" /> 分钟
+            </ui-tips>
+        </div>
+        <div style="margin-top: 10px;">
+            <label>休息时长</label>
+            <ui-tips title="默认5分钟" data-align="left">
+                <input type="tel" id="restTime" class="ui-input" size="20" name="tel" required  onkeyup="limitNumber"/> 分钟
+            </ui-tips>
+        </div>
+        <script src="../../lib/jquery-3.6.0.min.js"></script>
+        <script src="../../lib/lulu/all.js"></script>
+        <script src="./js/setting.js"></script>
+    </form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "pluginName": "桌面挂件",
+  "description": "桌面挂件",
+  "author": "xiaou",
+  "version": "1.0.0",
+  "logo": "logo.png",
+  "preload": "preload.js",
+  "features": [
+    {
+      "code": "gj",
+      "explain": "桌面挂件",
+      "cmds": ["gj", "挂件"]
+    },
+    {
+      "code": "gjSetting",
+      "explain": "挂件设置",
+      "cmds": ["挂件设置"]
+    }
+  ]
+}

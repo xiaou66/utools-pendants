@@ -1,0 +1,27 @@
+{
+    "id": "xiaou_02",
+    "title": "默认资源挂件",
+    "description": "一个可以看系统资源的挂件",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": true,
+    "theme": [
+        {
+            "author": "xiaou",
+            "title": "默认主题",
+            "file": ["./js/main.js", "./css/index.css"]
+        }
+    ],
+    "options": {
+        "width": 225,
+        "height": 150,
+        "alwaysOnTop": false,
+        "transparent": true,
+        "frame": false,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": false,
+            "preload": "preload.js"
+        }
+    }
+}

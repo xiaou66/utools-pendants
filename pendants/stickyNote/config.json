@@ -1,0 +1,21 @@
+{
+    "id": "xiaou_03",
+    "title": "便利贴",
+    "description": "便利贴",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": false,
+    "options": {
+        "width": 225,
+        "height": 300,
+        "alwaysOnTop": false,
+        "transparent": true,
+        "frame": false,
+        "resizable": true,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": true,
+            "preload": "preload.js"
+        }
+    }
+}
