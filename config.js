@@ -28,7 +28,8 @@ function getConfig() {
             }
             item.title += `|作者:${item.author}`
             return item;
-        }).filter(item => !item.hide)
+        }).map(item => {item.single === undefined ? true : item.single; return item})
+        .filter(item => !item.hide)
     console.log(configs);
     return configs;
 }

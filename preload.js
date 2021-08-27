@@ -223,8 +223,8 @@ ipcRenderer.on('control::setPosition', (event, data) => {
  */
 ipcRenderer.on('data::saveData', (event, data) => {
     if (!data) {
+        data = {};
         console.log('没有数据')
-        return;
     }
     const { res, index } = getRunItemById(event.senderId);
     data = JSON.parse(data);
