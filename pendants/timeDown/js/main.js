@@ -11,6 +11,7 @@ document.querySelectorAll('input').forEach(item => {
 const setTimeModal = $('#setTimeModal');
 const time = $('#time');
 let timer = undefined;
+$('#hr').focus();
 $('#setTime').on('click', () => {
     time.hide();
     setTimeModal.show();
@@ -34,6 +35,11 @@ $('#setTimeOkButton').on('click', () => {
         clearInterval(timer);
     }
     timer = setInterval(setTimeDown, 1000);
+})
+$('#second').keydown((event) => {
+    if (event.keyCode === 13) {
+        $('#setTimeOkButton').click();
+    }
 })
 function setTimeDown() {
     const diff = targetTime.diff(moment(), 'seconds');

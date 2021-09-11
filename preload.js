@@ -126,8 +126,9 @@ window.exports = {
                 callbackSetList(list);
             },
             select: async (action, itemData, callbackSetList) => {
-                const { setting } = itemData;
-                const index = runList.findIndex(item => item.setting && item.src === setting.src);
+                const { setting, id } = itemData;
+                const index = runList.findIndex(item => item.setting && item.src === setting.src && item.id === `setting/${id}`);
+                debugger;
                 if (index !== -1) {
                     utools.showNotification('当前挂件设置已经打开');
                     return;
@@ -136,7 +137,7 @@ window.exports = {
                     debugger;
                     ipcRenderer.sendTo(win.webContents.id, 'init');
                     win.webContents.openDevTools({ mode: 'detach' });
-                    runList.push({setting: true, win, src: setting.src})
+                    runList.push({setting: true, win, src: setting.src, id: `setting/${id}`})
                 })
             }
         }
@@ -162,15 +163,17 @@ ipcRenderer.on('control::close', (event) => {
     const { res, index } = getRunItemById(event.senderId);
     console.log('close');
     try {
-        setTimeout(() => {
-            if (res.win) {
-                res.win.destroy();
-            }
-            if (index !== -1) {
-                runList.splice(index, 1);
-            }
-        });
-    }catch (e) {}
+        if (res.win) {
+            res.win.destroy();
+        }
+        if (index !== -1) {
+            runList.splice(index, 1);
+        }
+    }catch (e) {
+        if (index !== -1) {
+            runList.splice(index, 1);
+        }
+    }
 });
 /**
  * 新建当前类型的窗体

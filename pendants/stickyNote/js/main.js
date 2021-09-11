@@ -18,6 +18,20 @@ window.onload = () => {
         li.onclick = () => selectColor(color);
         colorPicker.children[0].appendChild(li);
     })
+    const {fontSize = '', englishFont = '', chineseFont = '' } = window.UtoolsUtils.read('xiaou_03/setting/font');
+    let style = '';
+    if (fontSize) {
+        style += `font-size:${fontSize}px;`;
+    }
+    if (englishFont && chineseFont) {
+        style += `font-family: "${englishFont}","${chineseFont}",Serif;`;
+    } else if (englishFont) {
+        style += `font-family: "${englishFont}",Serif;`;
+    } else if (chineseFont) {
+        style += `font-family: "${chineseFont}",Serif;`;
+    }
+    console.log(style);
+    textarea.style = style;
 }
 function selectColor(color) {
     const {R, B, G} = colorRgb(color);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>便利贴挂件设置</title>
+    <link rel="stylesheet" href="../../lib/lulu/css.css">
+    <style>
+        textarea {
+            box-shadow: 1px 1px 1px #c3c3c3;
+            border-radius: 10px;
+            margin-top: 30px;
+            outline:none;
+            resize:none;
+            border: none;
+            width: 80%;
+            background: rgba(0,0,0,0);
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+  <form is="ui-form" style="height: 100%;">
+    <div style="display: grid; grid-template-columns: 50% 50%;gap: 10px 0px">
+        <div>
+            <label>英文字体</label>
+            <input id="english" class="ui-input" list="english-options" is="ui-datalist" style="width: 90%;">
+            <datalist id="english-options">
+            </datalist>
+        </div>
+        <div>
+            <label>中文字体</label>
+            <input id="chinese" class="ui-input" list="chinese-options" is="ui-datalist" style="width: 90%;">
+            <datalist id="chinese-options">
+            </datalist>
+        </div>
+        <div>
+            <label>字体大小</label>
+            <input is="ui-input" id="font-size" style="width: 90%;"/>
+        </div>
+    </div>
+    <div style="margin-top: 20px;display: flex;justify-content: right">
+        <button href="javascript:" type="button" class="ui-button" data-type="normal" id="reset">
+            恢复默认设置
+        </button>
+    </div>
+    <div style="display: flex;justify-content: center;height: 120px;">
+        <textarea id="textarea">预览文字aadsadasd....11122。。。</textarea>
+    </div>
+ </form>
+  <script src="../../lib/jquery-3.6.0.min.js"></script>
+  <script src="../../lib/lulu/all.js"></script>
+  <script src="./js/setting.js"></script>
+</body>
+</html>

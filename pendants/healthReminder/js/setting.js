@@ -1,4 +1,3 @@
-console.log(utools)
 const { intervalTime = 120, restIntervalTime = 5 } = window.UtoolsUtils.read('xiaou_05/data/setting');
 const $intervalTime = $('#intervalTime');
 const $restIntervalTime = $('#restTime');

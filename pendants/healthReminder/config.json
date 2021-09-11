@@ -9,7 +9,7 @@
         "src": "setting.html",
         "options": {
             "width": 500,
-            "height": 400,
+            "height": 250,
             "alwaysOnTop": true,
             "resizable": false,
             "webPreferences": {

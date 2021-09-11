@@ -1,9 +1,13 @@
 const _IpcRendererUtils = require('../../utils/IpcRendererUtils');
+window.UtoolsUtils = require('../../utils/UToolsUtils');
+window.fontList = require('font-list');
 // 主窗体的 ID
 window.IpcRendererUtils = new _IpcRendererUtils({
     initCallback: (data) => {
         setTimeout(() => {
-            window.initData(data)
+            if (window.initData) {
+                window.initData(data)
+            }
         }, 500)
         console.log(data)
     },

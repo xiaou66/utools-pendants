@@ -5,6 +5,19 @@
     "author": "xiaou",
     "src": "index.html",
     "single": false,
+    "setting": {
+        "src": "setting.html",
+        "options": {
+            "width": 500,
+            "height": 400,
+            "alwaysOnTop": true,
+            "resizable": false,
+            "webPreferences": {
+                "devTools": true,
+                "preload": "preload.js"
+            }
+        }
+    },
     "options": {
         "width": 225,
         "height": 300,
@@ -14,7 +27,7 @@
         "resizable": true,
         "backgroundColor": "#00000000",
         "webPreferences": {
-            "devTools": false,
+            "devTools": true,
             "preload": "preload.js"
         }
     }
