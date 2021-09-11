@@ -5,16 +5,17 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
-    "hide": true,
+    "hide": false,
     "options": {
         "width": 800,
         "height": 800,
         "transparent": true,
+        "alwaysOnTop": true,
         "frame": false,
         "resizable": false,
         "backgroundColor": "#00000000",
         "webPreferences": {
-            "devTools": true,
+            "devTools": false,
             "preload": "preload.js"
         }
     }

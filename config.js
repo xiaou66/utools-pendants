@@ -27,6 +27,8 @@ function getConfig() {
                 }
             }
             item.title += `|作者:${item.author}`
+            const tag = `「${item.single ? '单例' : '多例'}」`;
+            item.description = tag + item.description;
             return item;
         }).map(item => {item.single === undefined ? true : item.single; return item})
         .filter(item => !item.hide)
