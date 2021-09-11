@@ -61,6 +61,8 @@ window.initData = ({note = '', backgroundColor = ''} = {}) => {
 }
 
 clear.onclick = () => {
+    window.IpcRendererUtils.removeData();
+    window.IpcRendererUtils.winClose();
     window.winClose(false);
 }
 sticky.onclick = () => {

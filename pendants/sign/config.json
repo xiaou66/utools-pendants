@@ -1,0 +1,21 @@
+{
+    "id": "xiaou_06",
+    "title": "桌面牌子",
+    "description": "可以在电脑上显示暂时离开去哪儿了",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": true,
+    "hide": true,
+    "options": {
+        "width": 800,
+        "height": 800,
+        "transparent": true,
+        "frame": false,
+        "resizable": false,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "devTools": true,
+            "preload": "preload.js"
+        }
+    }
+}

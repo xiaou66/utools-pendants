@@ -50,7 +50,7 @@ class IpcRendererUtils {
         this.sendMainMessage("control::setFullScreen", { status })
     }
     /**
-     * 切换是否全屏
+     * 切换是否置顶
      * @param status 如果留空就取反 [可选][boolean]
      */
      swatchAlwaysOnTop(status) {

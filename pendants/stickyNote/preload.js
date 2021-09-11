@@ -12,7 +12,8 @@ window.IpcRendererUtils = new _IpcRendererUtils({
         console.log(data)
     },
     windowCloseBefore: function () {
-        this.removeData();
+        debugger;
+        window.IpcRendererUtils.removeData();
     }
 });
 window.winClose = (saveData = true) => {

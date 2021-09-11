@@ -21,7 +21,7 @@
         "resizable": false,
         "backgroundColor": "#00000000",
         "webPreferences": {
-            "devTools": false
+            "devTools": true
         }
     }
 }
