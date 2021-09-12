@@ -1,6 +1,7 @@
 const _IpcRendererUtils = require('../../utils/IpcRendererUtils');
+console.log('1111')
 window.IpcRendererUtils = new _IpcRendererUtils({
-    windowCloseBefore: function () {
-       this.saveData();
+    windowCloseBefore:  () => {
+        window.IpcRendererUtils.saveData();
     }
-})
+});

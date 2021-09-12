@@ -6,7 +6,13 @@ function createWindow (itemData, {position = {}, data = {}} ={})  {
         try {
             itemData = {...itemData};
             delete itemData.win;
+            const fullscreen = itemData.options.fullscreen;
+            itemData.options.fullscreen = false;
             const win = utools.createBrowserWindow(itemData.src, {...itemData.options, ...position}, () => {
+                if (fullscreen) {
+                    win.setFullScreen(true);
+                    itemData.options.fullscreen = true;
+                }
                 // 发送 id/初始数据
                 win.setSkipTaskbar(true);
                 if (itemData.options && itemData.options.webPreferences && itemData.options.webPreferences.devTools) {
@@ -14,6 +20,7 @@ function createWindow (itemData, {position = {}, data = {}} ={})  {
                 }
                 ipcRenderer.sendTo(win.webContents.id, 'init', JSON.stringify(data));
                 if (itemData.currentTheme) {
+                    debugger;
                     // 有主题发送主题信息
                     const { width, height } = itemData.currentTheme;
                     if (width && height) {
@@ -46,6 +53,7 @@ function saveWindowPosition(itemData, pendantData = {}) {
     }
     UToolsUtils.save(`${itemData.id}${nativeId}/data/${itemData.saveId}`, {...data});
 }
+const backMenu = {flag: -1, title: '返回', description: '返回到挂件列表'};
 window.exports = {
     // 挂件列表
     gj: {
@@ -56,20 +64,23 @@ window.exports = {
                 callbackSetList(pendantsConfig);
             },
             select: async (action, itemData, callbackSetList) => {
+                if (itemData.flag === -1) {
+                    callbackSetList(pendantsConfig);
+                    return;
+                }
                 const index = runList.findIndex(item => item.id === itemData.id);
                 if (itemData.theme && itemData.theme.length === 1) {
                     // 只有一个主题
                     itemData = {...itemData, flag: 1, currentTheme: itemData.theme[0] }
                 }
                 if (itemData.theme && !itemData.flag) {
-                    debugger;
                     const theme = itemData.theme.map(item => {
                         const {title, description = '', author = '' } = item;
                         return {...itemData, title,
                             description: [author, description].filter(i => i.length).join('|'),
                             flag: 1, currentTheme: item };
                     });
-                    callbackSetList([...theme])
+                    callbackSetList([backMenu, ...theme])
                     return;
                 }
                 if (index !== -1 && itemData.single) {

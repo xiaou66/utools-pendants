@@ -9,6 +9,7 @@ class IpcRendererUtils {
      * @param windowCloseBefore 窗口关闭前不提供不绑定
      */
     constructor({initCallback = undefined, themeCallback = undefined, windowCloseBefore = undefined} = {}) {
+        debugger;
         ipcRenderer.on('init', (event, data) => {
             data = JSON.parse(data || "{}");
             this.mainId = event.senderId;
@@ -17,6 +18,7 @@ class IpcRendererUtils {
             }
         });
         ipcRenderer.on('setTheme', (event, data) => {
+            debugger;
             const theme =  JSON.parse(data);
             if (themeCallback) {
                 themeCallback(theme)
@@ -25,7 +27,7 @@ class IpcRendererUtils {
                 if (window.setThemeFile) {
                     window.setThemeFile(theme.file)
                 }
-            }, 600);
+            });
         })
         if (windowCloseBefore) {
             window.onbeforeunload = (e) => {

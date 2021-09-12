@@ -5,6 +5,13 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
+    "theme": [
+        {
+            "author": "xiaou",
+            "title": "默认主题",
+            "file": ["./js/main.js", "./css/index.css"]
+        }
+    ],
     "setting": {
         "src": "setting.html",
         "options": {

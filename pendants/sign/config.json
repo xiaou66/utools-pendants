@@ -6,13 +6,39 @@
     "src": "index.html",
     "single": true,
     "hide": false,
+    "setting": {
+        "src": "setting.html",
+        "options": {
+            "width": 500,
+            "height": 400,
+            "alwaysOnTop": true,
+            "resizable": false,
+            "webPreferences": {
+                "devTools": false,
+                "preload": "preload.js"
+            }
+        }
+    },
+    "theme": [
+        {
+            "author": "xiaou",
+            "title": "默认主题",
+            "file": ["./js/main.js", "./css/index.css"]
+        },
+        {
+            "author": "xiaou",
+            "title": "自定义背景",
+            "file": ["./js/customBackground.js", "./css/customBackground.css"]
+        }
+    ],
     "options": {
-        "width": 800,
-        "height": 800,
+        "width": 0,
+        "height": 0,
         "transparent": true,
         "alwaysOnTop": true,
         "frame": false,
         "resizable": false,
+        "fullscreen": true,
         "backgroundColor": "#00000000",
         "webPreferences": {
             "devTools": false,
