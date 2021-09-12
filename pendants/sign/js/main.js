@@ -1,7 +1,7 @@
 const { jsx, render } = nanoJSX;
 const App = (props) => jsx`<div class="pusheen">
   <div id="tips">
-    <textarea type="text" placeholder="可以输入内容,按「ESC」键也可退出"></textarea>
+    <textarea type="text" autofocus placeholder="可以输入内容,按「ESC」键也可退出"></textarea>
   </div>
   <div>
     <svg class="pusheen__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 676.87 688.44">
@@ -106,14 +106,12 @@ const App = (props) => jsx`<div class="pusheen">
 </div>`
 render(jsx`<${App} />`, document.getElementById('root'))
 
-setTimeout(() => {
-    const tl = gsap.timeline({repeat: -1, yoyo:true, repeatDelay: 0});
-    tl.to(".pusheen__svg", {duration: .3, transformOrigin:"50% 100%", scaleY: 1.01, scaleX: 0.99, ease: "power1"})
-        .to("#whisker-r", {duration: .3, transformOrigin:"0% 50%", rotation: -10, ease: "power1"}, 0)
-        .to("#whisker-l", {duration: .3, transformOrigin:"100% 50%", rotation: 10, ease: "power1"}, 0)
-        .to("#paws", {duration: .3, transformOrigin:"50% 50%", y: -2, ease: "power1"}, 0);
+const tl = gsap.timeline({repeat: -1, yoyo:true, repeatDelay: 0});
+tl.to(".pusheen__svg", {duration: .3, transformOrigin:"50% 100%", scaleY: 1.01, scaleX: 0.99, ease: "power1"})
+    .to("#whisker-r", {duration: .3, transformOrigin:"0% 50%", rotation: -10, ease: "power1"}, 0)
+    .to("#whisker-l", {duration: .3, transformOrigin:"100% 50%", rotation: 10, ease: "power1"}, 0)
+    .to("#paws", {duration: .3, transformOrigin:"50% 50%", y: -2, ease: "power1"}, 0);
 
 
-    const tl2 = gsap.timeline({repeat: -1, yoyo:true, repeatDelay: 0});
-    tl2.to("#tail", {duration: 1, transformOrigin:"100% 50%", rotation: 10, ease: "power1"}, 0);
-}, 1000)
+const tl2 = gsap.timeline({repeat: -1, yoyo:true, repeatDelay: 0});
+tl2.to("#tail", {duration: 1, transformOrigin:"100% 50%", rotation: 10, ease: "power1"}, 0);

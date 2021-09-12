@@ -8,7 +8,7 @@ class CustomBackground extends Component {
                 <span class="min button"></span>
                 <span class="max button"></span>
             </div>
-            <textarea id="text"></textarea>
+            <textarea id="text" autofocus></textarea>
         </div>
         `
     }
