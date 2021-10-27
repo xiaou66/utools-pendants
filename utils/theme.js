@@ -30,6 +30,7 @@ window.Import={
                 if(ThisType==".js"){
                     fileObj=document.createElement('script');
                     fileObj.src = url;
+                    fileObj.type = 'module';
                 }else if(ThisType==".css"){
                     fileObj=document.createElement('link');
                     fileObj.href = url;

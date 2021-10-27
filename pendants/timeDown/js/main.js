@@ -1,3 +1,4 @@
+import { parseSecondToTime } from '../../../utils/ToolsBox.js';
 let targetTime = '未设置';
 function limitNumber() {
     this.value=this.value.replace(/\D/g,'');
@@ -51,5 +52,5 @@ function setTimeDown() {
         return;
     }
     console.log(window);
-    time.text(window.parseSecondToTime(diff));
+    time.text(parseSecondToTime(diff));
 }

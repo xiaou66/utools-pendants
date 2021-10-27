@@ -1,0 +1,49 @@
+{
+    "id": "xiaou_07",
+    "title": "web挂件",
+    "description": "网页挂件",
+    "author": "xiaou",
+    "src": "index.html",
+    "single": false,
+    "plugin": {
+        "src": "plugin.js",
+        "features": [
+            {
+                "code": "open",
+                "cmds": [{
+                    "type": "regex",
+                    "label": "打开一个网页挂件",
+                    "match": "/^http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/i"
+                },  {
+                    "type": "files",
+                    "label": "打开一个文件挂件",
+                    "fileType": "file",
+                    "minLength": 1,
+                    "maxLength": 1
+                }]
+            },
+            {
+                "code": "saveList",
+                "cmds": ["网页挂件列表"]
+            }
+        ]
+    },
+    "options": {
+        "width": 800,
+        "height": 600,
+        "maxWidth": 800,
+        "maxHeight": 600,
+        "minWidth": 340,
+        "minHeight": 60,
+        "alwaysOnTop": true,
+        "transparent": true,
+        "frame": false,
+        "resizable": true,
+        "backgroundColor": "#00000000",
+        "webPreferences": {
+            "webviewTag": true,
+            "devTools": true,
+            "preload": "preload.js"
+        }
+    }
+}

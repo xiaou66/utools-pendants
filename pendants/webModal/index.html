@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../lib/lulu/css.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../../font/iconfont.css">
+    <title>倒计时</title>
+</head>
+<!--sandbox="allow-scripts allow-same-origin allow-popups"-->
+<body>
+    <div>
+        <div id="cover"></div>
+        <div id="tool">
+            <div id="left">
+                <div id="back" class="iconfont">&#xe612;</div>
+                <div id="reload" data-status="true" class="iconfont">&#xe8b9;</div>
+                <div id="deleteToList" class="iconfont">&#xe680;</div>
+                <div id="timeReload" class="iconfont">&#xe75e;</div>
+            </div>
+            <div id="right">
+                <div id="alwaysTop" data-status="true" class="iconfont">&#xe608;</div>
+                <div id="delete" class="iconfont">&#xe680;</div>
+                <div id="close" class="iconfont">&#xe685;</div>
+            </div>
+        </div>
+        <div id="enter">
+            <div class="inputBox">
+                <input id="enterInput" type="text" placeholder="http://" />
+                <span id="enterButton" class="iconfont">
+                    &#xe6ae;
+                </span>
+            </div>
+            <div id="settingBox">
+                <div class="form-item">
+                    <label>设备</label>
+                    <select id="equipment" is="ui-select">
+                        <option value="pc">电脑</option>
+                        <option value="phone">手机</option>
+                    </select>
+                </div>
+                <div class="form-item" id="winSize">
+                    <label>窗口大小</label>
+                    <select is="ui-select">
+                        <option value="1">iPhone 6/7/8</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="web">
+        </div>
+        <dialog id="saveToListDialog" is="ui-dialog">
+            <div>
+                <input class="ui-input" width="100%" placeholder="保存名称如果已经存在将覆盖之前">
+            </div>
+        </dialog>
+        <dialog id="timeReloadDialog" is="ui-dialog">
+            <div>
+                <input class="ui-input" width="100%" placeholder="保存名称如果已经存在将覆盖之前">
+            </div>
+        </dialog>
+    </div>
+<!--    <script src="../../utils/theme.js"></script>-->
+    <script type="text/javascript" src="../../lib/lulu/all.js"></script>
+    <script type="text/javascript" src="../../lib/pxmu.min.js"></script>
+    <script type="text/javascript" src="../../lib/popper.min.js"></script>
+    <script type="text/javascript" src="../../lib/tippy.min.js"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>

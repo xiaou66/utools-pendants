@@ -1,14 +1,15 @@
-const { pendantsConfig } =require('./config');
+const { pendantsConfig, getPendantsPlugin } =require('./config');
 const UToolsUtils = require('./utils/UToolsUtils');
 const runList = [];
-function createWindow (itemData, {position = {}, data = {}} ={})  {
+function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
     return new Promise((resolve, reject) => {
         try {
+            console.log(position,  winSize);
             itemData = {...itemData};
             delete itemData.win;
             const fullscreen = itemData.options.fullscreen;
             itemData.options.fullscreen = false;
-            const win = utools.createBrowserWindow(itemData.src, {...itemData.options, ...position}, () => {
+            const win = utools.createBrowserWindow(itemData.src, { ...itemData.options, ...position, ...winSize }, () => {
                 if (fullscreen) {
                     win.setFullScreen(true);
                     itemData.options.fullscreen = true;
@@ -40,7 +41,11 @@ function createWindow (itemData, {position = {}, data = {}} ={})  {
 function saveWindowPosition(itemData, pendantData = {}) {
     debugger;
     const position = itemData.win.getPosition();
-    const data = {position: {x: position[0], y: position[1]}, data: pendantData};
+    const size = itemData.win.getSize();
+    const data = {
+        position: { x: position[0], y: position[1] },
+        winSize: { width: size[0], height: size[1] },
+        data: pendantData };
     let nativeId = '';
     if (itemData.dataIsolation) {
         // 数据隔离
@@ -51,11 +56,39 @@ function saveWindowPosition(itemData, pendantData = {}) {
         UToolsUtils.save(`${itemData.id}${nativeId}/data`, {...data});
         return;
     }
+    console.log(`${itemData.id}${nativeId}/data/${itemData.saveId}保存`, data);
     UToolsUtils.save(`${itemData.id}${nativeId}/data/${itemData.saveId}`, {...data});
 }
+
 const backMenu = {flag: -1, title: '返回', description: '返回到挂件列表'};
-window.exports = {
-    // 挂件列表
+const pendantsPlugin = getPendantsPlugin();
+
+window.createWindowByPendantId = (pendantId, data = {}) => {
+    const pendantConfig = pendantsConfig.find(item => item.id === pendantId);
+    if (!pendantConfig || pendantConfig.theme) {
+        return false;
+    }
+
+    if (pendantConfig.single) {
+        const index = runList.findIndex(item => item.id === itemData.id);
+        const win = runList[index].win;
+        saveWindowPosition(runList[index]);
+        win.close();
+        runList.splice(index, 1);
+    }
+    console.log('dadasdasd',data);
+    createWindow(pendantConfig, data);
+
+}
+utools.onPluginReady(() => {
+    console.log(pendantsPlugin.features);
+    pendantsPlugin.features.map(feature => {
+        utools.removeFeature(feature.code);
+        utools.setFeature(feature)
+    });
+    console.log('所有的「features」加载完成', utools.getFeatures());
+});
+const mainHandler = {
     gj: {
         mode: "list",
         args: {
@@ -154,6 +187,15 @@ window.exports = {
         }
     }
 }
+const pendantsHandler = {};
+for (let key in pendantsPlugin.handler) {
+    pendantsHandler[key] = pendantsPlugin.handler[key];
+}
+window.exports = {
+    // 挂件列表
+    ...mainHandler,
+    ...pendantsHandler,
+}
 // 通信
 const { ipcRenderer } = require('electron');
 
@@ -185,6 +227,61 @@ ipcRenderer.on('control::close', (event) => {
             runList.splice(index, 1);
         }
     }
+});
+
+let moveSize = {
+};
+/**
+ * 窗口移动
+ */
+ipcRenderer.on('control::move', (event, data) => {
+    const { res: {win}, index } = getRunItemById(event.senderId);
+    const { offsetX = 0, offsetY = 0, status } = JSON.parse(data || "{}");
+    debugger;
+    const [w, h] = win.getSize();
+    if (status === 'start') {
+        moveSize.w = w;
+        moveSize.h = h;
+        win.setMaximumSize(w, h);
+        return;
+    }else if (status === 'end') {
+        const scaleFactor = utools.getDisplayNearestPoint(utools.getCursorScreenPoint()).scaleFactor;
+        win.setMaximumSize(100000, 100000);
+        const offset = {
+            x: 0,
+            y: 0
+        }
+        if (scaleFactor === 1.25 || scaleFactor === 1.75) {
+            offset.x = 1;
+            offset.y = 1;
+        }
+        win.setSize(moveSize.w - offset.x, moveSize.h - offset.y);
+        return;
+    }
+    const bounds = win.getBounds();
+    bounds.x += offsetX;
+    bounds.y += offsetY;
+    win.setBounds(bounds);
+});
+/**
+ * 窗口居中
+ */
+ipcRenderer.on('control:center', (event, data) => {
+    const { res: {win}, index } = getRunItemById(event.senderId);
+    if (!win) {
+        return;
+    }
+    win.hide();
+    const { offsetX = 0, offsetY = 0 } = JSON.parse(data || "{}");
+    // 没有设置居中偏移量直接居中
+    win.center();
+    if (offsetY !== 0 || offsetX !== 0) {
+        const bounds = win.getBounds();
+        bounds.x += offsetX;
+        bounds.y += offsetY;
+        win.setBounds(bounds);
+    }
+    win.show();
 });
 /**
  * 新建当前类型的窗体
@@ -248,6 +345,17 @@ ipcRenderer.on('data::saveData', (event, data) => {
     }
     saveWindowPosition(res, data);
 });
+ipcRenderer.on('data::saveDataContainWinInfo', (event, data) => {
+    if (!data) {
+        data = {};
+        console.log('没有数据')
+    }
+    const { res: {win}, index } = getRunItemById(event.senderId);
+    const { key, data: winData} = JSON.parse(data);
+    const {x, y, width, height} = win.getBounds();
+    console.log(key, winData);
+    UToolsUtils.save(key, {data: winData, position: {x, y}, winSize: {width, height}});
+})
 /**
  * 移除数据
  */

@@ -12,6 +12,18 @@ function parseSecondToTime(data) {
     const ss = s < 10 ? "0" + s : s;
     return hh + ":" + mm + ":" + ss;
 }
-module.exports = {
+function setTipsConfig(configs) {
+    if (!tippy) {
+        console.log('tippy?');
+        return;
+    }
+    configs.map(item => {
+        tippy(item.selector, {
+            content: item.tips,
+        });
+    })
+}
+export {
     parseSecondToTime,
+    setTipsConfig,
 }

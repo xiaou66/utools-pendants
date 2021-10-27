@@ -78,6 +78,15 @@ class IpcRendererUtils {
     }
 
     /**
+     * @param status 状态
+     * @param offsetX
+     * @param offsetY
+     */
+    swatchWindowMove(status, offsetX = 0, offsetY = 0) {
+         this.sendMainMessage('control::move', {offsetX, offsetY, status})
+    }
+
+    /**
      * 保存数据一般在关闭窗口前调用
      * @param data
      */
@@ -86,11 +95,20 @@ class IpcRendererUtils {
     }
 
     /**
+     * 保存插件数据
+     * @param key
+     * @param data
+     */
+    saveDataContainWinInfo(key, data) {
+         this.sendMainMessage('data::saveDataContainWinInfo', {key, data});
+    }
+    /**
      * 移除挂件数据 包含插件位置数据
      */
     removeData() {
          this.sendMainMessage('data:removeData')
     }
+
 
     /**
      * 对当前类型的窗口进行克隆
@@ -99,7 +117,50 @@ class IpcRendererUtils {
      winClone() {
         this.sendMainMessage('control::clone');
     }
+    /**
+     * 移动窗体
+     * @param selector 选择元素
+     */
+    winMove(selector) {
+        const $selector = document.querySelector(selector);
+        let move = false;
+        let mouseX = 0;
+        let mouseY = 0;
+        $selector.onmousedown = (e) => {
+            move = true;
+            const { pageX, pageY } = e;
+            mouseX = pageX;
+            mouseY = pageY;
+            this.swatchWindowMove('start');
+        }
+        $selector.onmousemove = (e) => {
+            if (move) {
+                const { pageX, pageY } = e;
+                const offsetX = pageX - mouseX;
+                const offsetY = pageY - mouseY;
+                console.log(document.body.clientWidth, document.body.clientHeight)
+                this.swatchWindowMove('move', offsetX, offsetY);
+            }
+        }
+        const cancelMove = () => {
+            if (move) {
+                move = false;
+                this.swatchWindowMove('end');
+            }
+        }
+        $selector.onmouseup = () => cancelMove();
+        $selector.onmouseleave = () => cancelMove();
+        $selector.onmouseenter = () => cancelMove();
+    }
 
+    /**
+     * 窗口居中
+     * @param offsetX
+     * @param offsetY
+     */
+    winCenter(offsetX = 0, offsetY = 0) {
+        this.sendMainMessage('control:center', { offsetX, offsetY });
+    }
     /**
      * 关闭窗口
      */

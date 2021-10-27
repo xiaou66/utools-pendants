@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path')
-
-
+const pendantsPlugin = {
+    features: [],
+    handler: {}
+};
 function getConfig() {
     const myAppPath = path.resolve(__dirname, 'pendants');
     const configs = fs.readdirSync(myAppPath)
@@ -14,6 +16,7 @@ function getConfig() {
             const data = fs.readFileSync(configFile);
             const item = JSON.parse(data);
             item.src = path.resolve(directory, item.src).replace(__dirname, '.')
+            // webPreferences
             if (item.options && item.options.webPreferences && item.options.webPreferences.preload) {
                 item.options.webPreferences.preload = path.resolve(directory, item.options.webPreferences.preload)
                     .replace(__dirname, '.')
@@ -25,6 +28,20 @@ function getConfig() {
                     item.setting.options.webPreferences.preload = path.resolve(directory, item.setting.options.webPreferences.preload)
                         .replace(__dirname, '.')
                 }
+            }
+            // plugin
+            if (item.plugin) {
+               const { src, features } = item.plugin;
+               const plugin = require(path.resolve(directory, src).replace(__dirname,  '.'));
+               features.map(({ code: preCode, cmds, explain = item.title }) => {
+                   const code = `pendants.${item.id}.${preCode}`;
+                   pendantsPlugin.features.push({
+                       code,
+                       explain,
+                       cmds
+                   });
+                   pendantsPlugin.handler[code] = plugin[preCode];
+               })
             }
             item.title += `|作者:${item.author}`
             const tag = `「${item.single ? '单例' : '多例'}」`;
@@ -44,4 +61,5 @@ function getConfig() {
 const pendantsConfig = [
     ...getConfig()
 ]
-module.exports = { pendantsConfig };
+const getPendantsPlugin = () => pendantsPlugin;
+module.exports = { pendantsConfig, getPendantsPlugin };

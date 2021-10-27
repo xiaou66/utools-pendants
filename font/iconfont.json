@@ -1,0 +1,65 @@
+{
+  "id": "2891968",
+  "name": "挂件",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2206566",
+      "name": "定时器",
+      "font_class": "timer",
+      "unicode": "e75e",
+      "unicode_decimal": 59230
+    },
+    {
+      "icon_id": "12898946",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "11372705",
+      "name": "刷新",
+      "font_class": "shuaxin",
+      "unicode": "e8b9",
+      "unicode_decimal": 59577
+    },
+    {
+      "icon_id": "11459728",
+      "name": "图钉",
+      "font_class": "tuding",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "8106253",
+      "name": "save",
+      "font_class": "save",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "841850",
+      "name": "飞机",
+      "font_class": "feiji",
+      "unicode": "e6ae",
+      "unicode_decimal": 59054
+    },
+    {
+      "icon_id": "9509972",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "15838563",
+      "name": "close-bold",
+      "font_class": "close-bold",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    }
+  ]
+}
