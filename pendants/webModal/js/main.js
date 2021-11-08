@@ -43,45 +43,49 @@ const baseJs = `
     let move = false;
     document.addEventListener('keydown', (e) => {
         console.log(e);
-    if (e.ctrlKey) {
-        if (e.shiftKey) {
-            switch (e.keyCode) {
-                case 83:
+        if (e.keyCode === 27) {
+            console.log('xiaou::webModal::close');
+            return;
+        }
+        if (e.ctrlKey) {
+            if (e.shiftKey) {
+                switch (e.keyCode) {
+                    case 83:
+                        const top = document.documentElement.scrollTop;
+                        const left = document.documentElement.scrollLeft
+                        const data = {top, left};
+                        console.log('xiaou::webModal::saveToList|' + JSON.stringify(data));
+                        break;
+                }
+                return;
+            }
+            switch (e.key) {
+                case 'w':
+                    console.log('xiaou::webModal::close');
+                    break;
+                case 'q':
+                    if (move) {
+                        move = false;
+                        console.log("xiaou::webModal::stopMove");
+                        return;
+                    }
+                    console.log("xiaou::webModal::startMove");
+                    move = true;
+                    break;
+                case 'r':
+                    console.log("xiaou::webModal::reload");
+                    break;
+                case 's':
                     const top = document.documentElement.scrollTop;
                     const left = document.documentElement.scrollLeft
                     const data = {top, left};
-                    console.log('xiaou::webModal::saveToList|' + JSON.stringify(data));
+                    console.log('xiaou::webModal::saveData|' + JSON.stringify(data));
+                    break;
+                case 'Tab':
+                    console.log('xiaou::webModal::switchTool')
                     break;
             }
-            return;
         }
-        switch (e.key) {
-            case 'w':
-                console.log('xiaou::webModal::close');
-                break;
-            case 'q':
-                if (move) {
-                    move = false;
-                    console.log("xiaou::webModal::stopMove");
-                    return;
-                }
-                console.log("xiaou::webModal::startMove");
-                move = true;
-                break;
-            case 'r':
-                console.log("xiaou::webModal::reload");
-                break;
-            case 's':
-                const top = document.documentElement.scrollTop;
-                const left = document.documentElement.scrollLeft
-                const data = {top, left};
-                console.log('xiaou::webModal::saveData|' + JSON.stringify(data));
-                break;
-            case 'Tab':
-                console.log('xiaou::webModal::switchTool')
-                break;
-        }
-    }
 })`
 
 

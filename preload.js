@@ -76,8 +76,7 @@ window.createWindowByPendantId = (pendantId, data = {}) => {
         win.close();
         runList.splice(index, 1);
     }
-    console.log('dadasdasd',data);
-    createWindow(pendantConfig, data);
+    createWindow(pendantConfig, { data }).then();
 
 }
 utools.onPluginReady(() => {
