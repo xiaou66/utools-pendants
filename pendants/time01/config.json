@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
+    "enterText": ["时钟挂件"],
     "theme": [
         {
             "author": "xiaou",

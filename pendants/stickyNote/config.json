@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": false,
+    "enterText": ["便利贴"],
     "setting": {
         "src": "setting.html",
         "options": {

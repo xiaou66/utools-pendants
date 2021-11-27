@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
+    "enterText": ["健康提醒", "health"],
     "theme": [
         {
             "author": "xiaou",

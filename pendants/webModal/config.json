@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": false,
+    "enterText": ["网页挂件", "web挂件"],
     "plugin": {
         "src": "plugin.js",
         "features": [

@@ -6,6 +6,7 @@
     "src": "index.html",
     "single": true,
     "hide": false,
+    "enterText": ["桌面牌子"],
     "setting": {
         "src": "setting.html",
         "options": {

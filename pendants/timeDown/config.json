@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
+    "enterText": ["计时器", "timer"],
     "theme": [
         {
             "width": 215,

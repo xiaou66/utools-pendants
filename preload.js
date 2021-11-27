@@ -77,16 +77,88 @@ window.createWindowByPendantId = (pendantId, data = {}) => {
         runList.splice(index, 1);
     }
     createWindow(pendantConfig, { data }).then();
-
 }
+
+// { code, pendantData }
+//         插件配置
+const pendantsEnterTexts = [];
 utools.onPluginReady(() => {
     console.log(pendantsPlugin.features);
     pendantsPlugin.features.map(feature => {
         utools.removeFeature(feature.code);
         utools.setFeature(feature)
     });
+    // 加载进入方法
+    pendantsEnterTexts.map(({ code, pendantData }) => {
+        utools.removeFeature(code);
+        utools.setFeature({
+            code,
+            "explain": pendantData.description,
+            cmds: pendantData.enterText
+        });
+    })
     console.log('所有的「features」加载完成', utools.getFeatures());
 });
+const selectPendantItemHandler = async (itemData, callbackSetList, {direct = false} = {}) => {
+    if (itemData.theme && itemData.theme.length === 1) {
+        // 只有一个主题
+        itemData = {...itemData, flag: 1, currentTheme: itemData.theme[0] }
+    }
+    const index = runList.findIndex(item => item.id === itemData.id);
+    if (itemData.theme && !itemData.flag) {
+        const theme = itemData.theme.map(item => {
+            const {title, description = '', author = '' } = item;
+            return {...itemData, title,
+                description: [author, description].filter(i => i.length).join('|'),
+                flag: 1, currentTheme: item };
+        });
+        if (!direct) {
+            callbackSetList([backMenu, ...theme])
+        }else  {
+            callbackSetList([...theme])
+        }
+        return;
+    }
+    if (index !== -1 && itemData.single) {
+        try {
+            const win = runList[index].win;
+            saveWindowPosition(runList[index]);
+            win.close();
+            runList.splice(index, 1);
+            return;
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    let nativeId = '';
+    if (itemData.dataIsolation) {
+        // 数据隔离
+        nativeId = '/' + utools.getNativeId();
+    }
+    if (itemData.single) {
+        const data = UToolsUtils.read(`${itemData.id}${nativeId}/data`) || {};
+        await createWindow(itemData, data);
+    } else  {
+        const docs = utools.db.allDocs(`${itemData.id}${nativeId}/data/`);
+        const index = runList.findIndex(item => item.id === itemData.id);
+        if (!docs.length || index !== -1) {
+            // 没有这个多例插件保存的历史记录, 或者不是首次创建插件
+            await createWindow(itemData);
+        } else  {
+            for (const doc of docs) {
+                if (typeof(doc.data)=='string') {
+                    doc.data = JSON.parse(doc.data);
+                }
+                await createWindow(itemData, doc.data);
+                console.log(doc);
+                utools.db.remove(doc._id);
+            }
+        }
+    }
+    if (direct) {
+        utools.outPlugin();
+    }
+}
 const mainHandler = {
     gj: {
         mode: "list",
@@ -100,56 +172,7 @@ const mainHandler = {
                     callbackSetList(pendantsConfig);
                     return;
                 }
-                const index = runList.findIndex(item => item.id === itemData.id);
-                if (itemData.theme && itemData.theme.length === 1) {
-                    // 只有一个主题
-                    itemData = {...itemData, flag: 1, currentTheme: itemData.theme[0] }
-                }
-                if (itemData.theme && !itemData.flag) {
-                    const theme = itemData.theme.map(item => {
-                        const {title, description = '', author = '' } = item;
-                        return {...itemData, title,
-                            description: [author, description].filter(i => i.length).join('|'),
-                            flag: 1, currentTheme: item };
-                    });
-                    callbackSetList([backMenu, ...theme])
-                    return;
-                }
-                if (index !== -1 && itemData.single) {
-                    try {
-                        const win = runList[index].win;
-                        saveWindowPosition(runList[index]);
-                        win.close();
-                        runList.splice(index, 1);
-                        return;
-                    }catch (e) {
-                        console.log(e)
-                    }
-                }
-                let nativeId = '';
-                if (itemData.dataIsolation) {
-                    // 数据隔离
-                    nativeId = '/' + utools.getNativeId();
-                }
-                if (itemData.single) {
-                    const data = UToolsUtils.read(`${itemData.id}${nativeId}/data`) || {};
-                    await createWindow(itemData, data);
-                } else  {
-                    const docs = utools.db.allDocs(`${itemData.id}${nativeId}/data/`);
-                    const index = runList.findIndex(item => item.id === itemData.id);
-                    if (!docs.length || index !== -1) {
-                        await createWindow(itemData);
-                        return;
-                    }
-                    for (const doc of docs) {
-                        if (typeof(doc.data)=='string') {
-                            doc.data = JSON.parse(doc.data);
-                        }
-                        await createWindow(itemData, doc.data);
-                        console.log(doc);
-                        utools.db.remove(doc._id);
-                    }
-                }
+                await selectPendantItemHandler(itemData, callbackSetList);
             }
         }
     },
@@ -190,10 +213,31 @@ const pendantsHandler = {};
 for (let key in pendantsPlugin.handler) {
     pendantsHandler[key] = pendantsPlugin.handler[key];
 }
+const pendantsEnterTextHandler = {};
+const pendantsFilterEnterTextData = pendantsConfig.filter(item => item.enterText && item.enterText.length);
+pendantsEnterTexts.push(...pendantsFilterEnterTextData.map(item => {
+    const code = item.id + '%' + 'enterText';
+    pendantsEnterTextHandler[code] = {
+        mode: "list",
+        args: {
+            enter: async (action, callbackSetList) => {
+                const itemData = { ...item, flag: item.theme ? 0 : 1 }
+                await selectPendantItemHandler(itemData, callbackSetList, {direct: true});
+            },
+            select: async (action, itemData, callbackSetList) => {
+                await selectPendantItemHandler(itemData, callbackSetList, {direct: true});
+            }
+        }
+    }
+    return { code, pendantData: item };
+}))
+
+
 window.exports = {
     // 挂件列表
     ...mainHandler,
     ...pendantsHandler,
+    ...pendantsEnterTextHandler,
 }
 // 通信
 const { ipcRenderer } = require('electron');

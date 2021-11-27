@@ -5,6 +5,7 @@
     "author": "xiaou",
     "src": "index.html",
     "single": true,
+    "enterText": ["系统资源挂件"],
     "theme": [
         {
             "author": "xiaou",
