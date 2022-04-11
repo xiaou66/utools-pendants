@@ -4,6 +4,7 @@ const runList = [];
 function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
     return new Promise((resolve, reject) => {
         try {
+            debugger
             console.log(position,  winSize);
             itemData = {...itemData};
             delete itemData.win;
@@ -76,7 +77,7 @@ window.createWindowByPendantId = (pendantId, data = {}) => {
         win.close();
         runList.splice(index, 1);
     }
-    createWindow(pendantConfig, { data }).then();
+    createWindow(pendantConfig, data).then();
 }
 
 // { code, pendantData }

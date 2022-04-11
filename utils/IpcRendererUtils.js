@@ -9,9 +9,9 @@ class IpcRendererUtils {
      * @param windowCloseBefore 窗口关闭前不提供不绑定
      */
     constructor({initCallback = undefined, themeCallback = undefined, windowCloseBefore = undefined} = {}) {
-        debugger;
         ipcRenderer.on('init', (event, data) => {
             data = JSON.parse(data || "{}");
+            console.log("init::", data);
             this.mainId = event.senderId;
             if (initCallback) {
                 initCallback(data)
@@ -32,6 +32,8 @@ class IpcRendererUtils {
         if (windowCloseBefore) {
             window.onbeforeunload = (e) => {
                 windowCloseBefore();
+                e.returnValue = false;
+                this.winClose();
             }
         }
 

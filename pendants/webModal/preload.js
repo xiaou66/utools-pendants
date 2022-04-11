@@ -20,7 +20,6 @@ window.IpcRendererUtils = new _IpcRendererUtils({
                 delete window.pendantsData;
             }
         }
-        console.log(data)
         if (url) {
             window.setUrl(url, data);
         } else {

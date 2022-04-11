@@ -1,4 +1,4 @@
-const UToolsUtils = require('../../utils/UToolsUtils');
+const UToolsUtils = require('../../utils/UToolsUtils.js');
 const originData = [];
 module.exports = {
     open: {
