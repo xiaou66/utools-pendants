@@ -4,7 +4,6 @@ const runList = [];
 function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
     return new Promise((resolve, reject) => {
         try {
-            debugger
             console.log(position,  winSize);
             itemData = {...itemData};
             delete itemData.win;
@@ -121,15 +120,23 @@ const selectPendantItemHandler = async (itemData, callbackSetList, {direct = fal
         return;
     }
     if (index !== -1 && itemData.single) {
+        //region 单例挂件如果已经存在就关闭挂件
         try {
+            debugger;
+            console.log("单例关闭")
             const win = runList[index].win;
             saveWindowPosition(runList[index]);
-            win.close();
-            runList.splice(index, 1);
-            return;
+            setTimeout(() => {
+                win.close();
+            },  200);
         }catch (e) {
             console.log(e)
         }
+        if (direct) {
+            utools.outPlugin();
+        }
+        return;
+        //endregion
     }
     let nativeId = '';
     if (itemData.dataIsolation) {
@@ -383,6 +390,9 @@ ipcRenderer.on('data::saveData', (event, data) => {
     }
     const { res, index } = getRunItemById(event.senderId);
     data = JSON.parse(data);
+    if (!res) {
+        return;
+    }
     if (res.single) {
         saveWindowPosition(res, data);
         return;

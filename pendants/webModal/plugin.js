@@ -8,10 +8,10 @@ module.exports = {
             enter: async ({type, payload, code}) => {
                 const id = code.split('.')[1];
                 if (type === 'regex'){
-                    window.createWindowByPendantId(id, { url: payload });
+                    window.createWindowByPendantId(id, { data: { url: payload } });
                     utools.outPlugin();
                 } else if (type === 'files') {
-                    window.createWindowByPendantId(id, { url: `file://${payload[0].path}` });
+                    window.createWindowByPendantId(id, {data: { url: `file://${payload[0].path}`} });
                     utools.outPlugin();
                 }
             },
