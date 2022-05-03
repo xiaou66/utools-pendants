@@ -108,7 +108,7 @@ class IpcRendererUtils {
      * 移除挂件数据 包含插件位置数据
      */
     removeData() {
-         this.sendMainMessage('data:removeData')
+         this.sendMainMessage('data::removeData')
     }
 
 

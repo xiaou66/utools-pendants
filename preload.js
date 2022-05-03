@@ -425,6 +425,7 @@ ipcRenderer.on('data::removeData', (event) => {
     } else {
         utools.db.remove(`${res.id}${nativeId}/data/${res.saveId}`);
     }
+    console.log("数据移除");
 });
 // 信息类
 
