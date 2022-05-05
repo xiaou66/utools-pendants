@@ -65,6 +65,9 @@ clear.onclick = () => {
     window.winClose(false);
 }
 sticky.onclick = () => {
+    const $svg = document.querySelector("#sticky>svg");
+    const fill = $svg.getAttribute("fill");
+    $svg.setAttribute("fill", fill === '#000000' ? "#f15" : '#000000')
     window.IpcRendererUtils.swatchAlwaysOnTop();
 }
 window.getData = () => {

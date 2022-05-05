@@ -16,6 +16,20 @@ $('#hr').focus();
 $('#setTime').on('click', () => {
     time.hide();
     setTimeModal.show();
+    if (typeof targetTime !== 'string') {
+        const diff = targetTime.diff(moment(), 'seconds');
+        if (diff <= 0) {
+            time.text('时间到');
+        } else {
+            const times = parseSecondToTime(diff).split(":");
+            if (times && times.length === 3) {
+                $('#hr').val(times[0]);
+                $('#minute').val(times[1]);
+                $('#second').val(times[2]);
+            }
+        }
+        timer && clearInterval(timer);
+     }
 })
 function clearSetTime() {
     setTimeModal.hide();
@@ -23,6 +37,8 @@ function clearSetTime() {
     document.querySelectorAll('input').forEach(item => {
         item.value = '';
     });
+    timer && clearInterval(timer);
+    timer = undefined;
 }
 $('#setTimeCancelButton').on('click', clearSetTime)
 $('#setTimeOkButton').on('click', () => {
@@ -31,13 +47,10 @@ $('#setTimeOkButton').on('click', () => {
     const second = $('#second').val();
     targetTime = moment().add(hr, 'h').add(minute, 'm').add(second, 's');
     setTimeDown();
-    clearSetTime()
-    if (timer) {
-        clearInterval(timer);
-    }
-    timer = setInterval(setTimeDown, 1000);
+    clearSetTime();
+    timer = setInterval(setTimeDown, 900);
 })
-$('#second').keydown((event) => {
+$('#second,#minute,#hr').keydown((event) => {
     if (event.keyCode === 13) {
         $('#setTimeOkButton').click();
     }

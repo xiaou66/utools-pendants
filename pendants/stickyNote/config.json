@@ -28,7 +28,7 @@
         "resizable": true,
         "backgroundColor": "#00000000",
         "webPreferences": {
-            "devTools": false,
+            "devTools": true,
             "preload": "preload.js"
         }
     }
