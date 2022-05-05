@@ -1,12 +1,11 @@
 const sec = document.querySelector('.sec');
 const min = document.querySelector('.min');
 const hr = document.querySelector('.hr');
-const now = new Date();
-const year = now.getFullYear();
-const month = now.getMonth() + 1;
-const day = now.getDate();
 setInterval(() => {
     const time = new Date();
+    const year = time.getFullYear();
+    const month = time.getMonth() + 1;
+    const day = time.getDate();
     const secs = time.getSeconds() * 6;
     const mins = time.getMinutes() * 6;
     const hrs =time.getHours() * 30;
