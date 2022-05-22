@@ -8,6 +8,7 @@ ul,li {
 }
 body {
     background: rgba(248,247,182, 0.8);
+    overflow: hidden;
 }
 #tool {
     height: 30px;
