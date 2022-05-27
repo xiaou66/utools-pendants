@@ -1,6 +1,7 @@
 const { pendantsConfig, getPendantsPlugin } =require('./config');
 const UToolsUtils = require('./utils/UToolsUtils');
 const runList = [];
+// 创建挂件窗口
 function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
     return new Promise((resolve, reject) => {
         try {
@@ -38,6 +39,7 @@ function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
         }
     })
 }
+// 保持挂件数据和挂件位置
 function saveWindowPosition(itemData, pendantData = {}) {
     debugger;
     const position = itemData.win.getPosition();
@@ -61,6 +63,7 @@ function saveWindowPosition(itemData, pendantData = {}) {
 }
 
 const backMenu = {flag: -1, title: '返回', description: '返回到挂件列表'};
+// 挂件插件配置
 const pendantsPlugin = getPendantsPlugin();
 
 window.createWindowByPendantId = (pendantId, data = {}) => {
@@ -99,12 +102,57 @@ utools.onPluginReady(() => {
     })
     console.log('所有的「features」加载完成', utools.getFeatures());
 });
+const executeAfterHandler = (direct = false) => {
+    if (direct) {
+        utools.outPlugin();
+    } else  {
+        utools.hideMainWindow();
+    }
+}
+const singlePendantTypeHandler = async (itemData, nativeId, direct = false) => {
+    const index = runList.findIndex(item => item.id === itemData.id);
+    if (index !== -1) {
+        try {
+            console.log("单例关闭")
+            const win = runList[index].win;
+            saveWindowPosition(runList[index]);
+            setTimeout(() => {
+                win.close();
+            },  200);
+        }catch (e) {
+            console.log(e)
+        }
+
+    } else {
+        const data = UToolsUtils.read(`${itemData.id}${nativeId}/data`) || {};
+        await createWindow(itemData, data);
+    }
+    executeAfterHandler(direct);
+}
+const manyPendantTypeHandler = async (itemData, nativeId, direct = false) => {
+    const docs = utools.db.allDocs(`${itemData.id}${nativeId}/data/`);
+    const index = runList.findIndex(item => item.id === itemData.id);
+    if (!docs.length || index !== -1) {
+        // 没有这个多例插件保存的历史记录, 或者不是首次创建插件
+        await createWindow(itemData);
+    } else  {
+        for (const doc of docs) {
+            if (typeof(doc.data)=='string') {
+                doc.data = JSON.parse(doc.data);
+            }
+            await createWindow(itemData, doc.data);
+            console.log(doc);
+            utools.db.remove(doc._id);
+        }
+    }
+    executeAfterHandler(direct);
+}
 const selectPendantItemHandler = async (itemData, callbackSetList, {direct = false} = {}) => {
     if (itemData.theme && itemData.theme.length === 1) {
         // 只有一个主题
         itemData = {...itemData, flag: 1, currentTheme: itemData.theme[0] }
     }
-    const index = runList.findIndex(item => item.id === itemData.id);
+    //region 主题选择处理
     if (itemData.theme && !itemData.flag) {
         const theme = itemData.theme.map(item => {
             const {title, description = '', author = '' } = item;
@@ -119,52 +167,16 @@ const selectPendantItemHandler = async (itemData, callbackSetList, {direct = fal
         }
         return;
     }
-    if (index !== -1 && itemData.single) {
-        //region 单例挂件如果已经存在就关闭挂件
-        try {
-            debugger;
-            console.log("单例关闭")
-            const win = runList[index].win;
-            saveWindowPosition(runList[index]);
-            setTimeout(() => {
-                win.close();
-            },  200);
-        }catch (e) {
-            console.log(e)
-        }
-        if (direct) {
-            utools.outPlugin();
-        }
-        return;
-        //endregion
-    }
+    //endregion
     let nativeId = '';
     if (itemData.dataIsolation) {
         // 数据隔离
         nativeId = '/' + utools.getNativeId();
     }
     if (itemData.single) {
-        const data = UToolsUtils.read(`${itemData.id}${nativeId}/data`) || {};
-        await createWindow(itemData, data);
+        await singlePendantTypeHandler(itemData, nativeId, direct);
     } else  {
-        const docs = utools.db.allDocs(`${itemData.id}${nativeId}/data/`);
-        const index = runList.findIndex(item => item.id === itemData.id);
-        if (!docs.length || index !== -1) {
-            // 没有这个多例插件保存的历史记录, 或者不是首次创建插件
-            await createWindow(itemData);
-        } else  {
-            for (const doc of docs) {
-                if (typeof(doc.data)=='string') {
-                    doc.data = JSON.parse(doc.data);
-                }
-                await createWindow(itemData, doc.data);
-                console.log(doc);
-                utools.db.remove(doc._id);
-            }
-        }
-    }
-    if (direct) {
-        utools.outPlugin();
+        await manyPendantTypeHandler(itemData, nativeId, direct);
     }
 }
 const mainHandler = {
@@ -202,7 +214,6 @@ const mainHandler = {
             select: async (action, itemData, callbackSetList) => {
                 const { setting, id } = itemData;
                 const index = runList.findIndex(item => item.setting && item.src === setting.src && item.id === `setting/${id}`);
-                debugger;
                 if (index !== -1) {
                     utools.showNotification('当前挂件设置已经打开');
                     return;
