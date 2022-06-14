@@ -1,5 +1,6 @@
 const { pendantsConfig, getPendantsPlugin } =require('./config');
 const UToolsUtils = require('./utils/UToolsUtils');
+window.onPluginReady = utools.onPluginReady ? utools.onPluginReady : (callback) => { callback() };
 const runList = [];
 // 创建挂件窗口
 function createWindow (itemData, {position = {}, data = {}, winSize} ={})  {
@@ -85,7 +86,7 @@ window.createWindowByPendantId = (pendantId, data = {}) => {
 // { code, pendantData }
 //         插件配置
 const pendantsEnterTexts = [];
-utools.onPluginReady(() => {
+window.onPluginReady(() => {
     console.log(pendantsPlugin.features);
     pendantsPlugin.features.map(feature => {
         utools.removeFeature(feature.code);
