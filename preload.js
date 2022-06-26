@@ -66,19 +66,30 @@ function saveWindowPosition(itemData, pendantData = {}) {
 const backMenu = {flag: -1, title: '返回', description: '返回到挂件列表'};
 // 挂件插件配置
 const pendantsPlugin = getPendantsPlugin();
-
+/**
+ * 创建挂件限制单主题
+ * @param pendantId 挂件id
+ * @param data { data: {} }
+ * @return {boolean} 是否创建成功
+ */
 window.createWindowByPendantId = (pendantId, data = {}) => {
+    debugger
     const pendantConfig = pendantsConfig.find(item => item.id === pendantId);
-    if (!pendantConfig || pendantConfig.theme) {
+    if (!pendantConfig || (pendantConfig.theme && pendantConfig.theme.length > 1)) {
         return false;
     }
-
+    // 只有一个主题
+    if (pendantConfig.theme) {
+        pendantConfig.currentTheme = pendantConfig.theme[0];
+    }
     if (pendantConfig.single) {
         const index = runList.findIndex(item => item.id === itemData.id);
-        const win = runList[index].win;
-        saveWindowPosition(runList[index]);
-        win.close();
-        runList.splice(index, 1);
+        if (index !== -1) {
+            const win = runList[index].win;
+            saveWindowPosition(runList[index]);
+            win.close();
+            runList.splice(index, 1);
+        }
     }
     createWindow(pendantConfig, data).then();
 }

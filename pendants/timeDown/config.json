@@ -15,6 +15,15 @@
             "file": ["./js/main.js", "./css/index.css"]
         }
     ],
+    "plugin": {
+        "src": "plugin.js",
+        "features": [
+            {
+                "code": "timeDownList",
+                "cmds": ["计时器列表", "timeList"]
+            }
+        ]
+    },
     "options": {
         "width": 215,
         "height": 120,

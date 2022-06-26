@@ -41,6 +41,18 @@ function clearSetTime() {
     timer = undefined;
 }
 $('#setTimeCancelButton').on('click', clearSetTime)
+window.startTime = (second) => {
+    targetTime = moment().add(second, 's');
+    setTimeDown();
+    clearSetTime();
+    timer = setInterval(setTimeDown, 900);
+}
+window.getTime = () => {
+    if (time.text() !== '时间到') {
+        return time.text();
+    }
+    return 0;
+}
 $('#setTimeOkButton').on('click', () => {
     const hr = $('#hr').val();
     const minute = $('#minute').val();
