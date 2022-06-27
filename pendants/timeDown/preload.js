@@ -1,10 +1,10 @@
 const _IpcRendererUtils = require('../../utils/IpcRendererUtils');
+const UToolsUtils = require('../../utils/UToolsUtils.js');
 window.IpcRendererUtils = new _IpcRendererUtils({
     initCallback: (data) => {
         console.log(data);
         if (data.time) {
             try {
-                debugger
                setTimeout(() => {
                    window.startTime(parseInt(data.time))
                }, 500)
@@ -15,6 +15,12 @@ window.IpcRendererUtils = new _IpcRendererUtils({
         }
     },
     windowCloseBefore:  () => {
+        const time = window.getTime();
+        if (time) {
+            UToolsUtils.save("xiaou_04/timeListLastTime", time);
+        }else {
+            utools.db.remove("xiaou_04/timeListLastTime")
+        }
         window.IpcRendererUtils.saveData();
     }
 });

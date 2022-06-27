@@ -83,7 +83,7 @@ window.createWindowByPendantId = (pendantId, data = {}) => {
         pendantConfig.currentTheme = pendantConfig.theme[0];
     }
     if (pendantConfig.single) {
-        const index = runList.findIndex(item => item.id === itemData.id);
+        const index = runList.findIndex(item => item.id === pendantConfig.id);
         if (index !== -1) {
             const win = runList[index].win;
             saveWindowPosition(runList[index]);
