@@ -38,6 +38,10 @@ module.exports = {
         } else {
           times = itemData.time.split(":");
         }
+        if (times.length > 3) {
+          utools.showNotification("仅支持「时 分 秒」三位");
+          return;
+        }
         //region 保存历史记录
         const timeList = UToolsUtils.read("xiaou_04/timeList") || [];
         if (timeList.length > 8) {
@@ -53,7 +57,7 @@ module.exports = {
         times = times.reverse();
         let seconds = parseInt(times[0]);
         for (let i = 1; i < times.length; i++) {
-          seconds += parseInt(times[i]) * i * 60;
+          seconds += parseInt(times[i]) * Math.pow(60, i);
         }
         console.log(seconds)
         window.createWindowByPendantId(id, { data: { time: seconds} });
