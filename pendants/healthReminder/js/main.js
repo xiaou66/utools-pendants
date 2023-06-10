@@ -10,6 +10,7 @@ window.nextTargetTime = () => {
 }
 nextTargetTime();
 function confirmHandler() {
+    utools.showNotification("休息时间到，请到主屏幕确认是否需要休息");
     IpcRendererUtils.setSize(200, 80);
     confirm.show();
     const x = utools.getPrimaryDisplay().size.width / 2 - 100;

@@ -372,7 +372,7 @@ ipcRenderer.on('control::setAlwaysOnTop', (event, data) => {
     const { res, index } = getRunItemById(event.senderId);
     data = data || "{}";
     const { status = !res.win.isAlwaysOnTop()} = JSON.parse(data);
-    res.win.setAlwaysOnTop(status);
+    res.win.setAlwaysOnTop(status, 'screen-saver');
     console.log('control::setAlwaysOnTop');
     // utools.showNotification(`窗口${status ? '置顶' : '取消置顶'}成功`)
 });
