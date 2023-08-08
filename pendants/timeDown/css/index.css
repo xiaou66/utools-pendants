@@ -7,7 +7,9 @@ input:focus{
     border:none;
 }
 #countdown {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 200px;
     height: 60px;
     box-shadow: 1px 1px 1px #c3c3c3;
@@ -43,6 +45,7 @@ input:focus{
 }
 #setTimeModal {
     position: absolute;
+    z-index: 99;
     -webkit-user-drag: none;
     outline: none;
     border: none;

@@ -8,8 +8,8 @@
     "enterText": ["计时器", "timer"],
     "theme": [
         {
-            "width": 215,
-            "height": 120,
+            "width": 200,
+            "height": 60,
             "author": "xiaou",
             "title": "默认主题",
             "file": ["./js/main.js", "./css/index.css"]
