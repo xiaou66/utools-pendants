@@ -217,7 +217,7 @@ body {
 .info .date {
     font-size: 12px;
     color: #72829a;
-    text-align: center;
+    text-align: left;
     padding-top: 4px;
     user-select: none;
 }
