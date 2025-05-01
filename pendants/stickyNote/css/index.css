@@ -7,12 +7,12 @@ ul,li {
     list-style: none;
 }
 body {
-    background: rgba(248,247,182, 0.8);
+    background: #88abda;
     overflow: hidden;
 }
 #tool {
     height: 30px;
-    background: rgba(248,247,182, 1);
+    background: #88abda;
     display: grid;
     align-items: center;
     justify-content: space-between;
@@ -36,7 +36,7 @@ body {
     position: relative;
     width: 16px;
     height: 16px;
-    background: #f8f7b6;
+    background: #88abda;
     border: 1px solid #2a2a2a;
     border-radius: 50%;
     cursor: pointer;

@@ -4,13 +4,13 @@ const textarea = document.getElementById('textarea');
 const clear = document.getElementById('clear');
 const sticky = document.getElementById('sticky');
 const colorPicker = document.getElementById('colorPicker');
-const colors = ['#f9f8c4', '#f18', '#F55C47', '#FFC288',
+const colors = ['#88abda', '#99bcac', '#3271ae', '#dcc7e1', '#FFC288',
                 '#B5EAEA', '#EDF6E5', '#FFBCBC', '#F38BA0',
                 '#A2DBFA', '#39A2DB', '#3C8DAD', '#DBE6FD',
                 '#98DDCA', '#D5ECC2', '#FFD3B4', '#FFAAA7',
                 '#FFCB91', '#FFEFA1', '#94EBCD', '#6DDCCF'
 ]
-let currentBackgroundColor = '#f9f8c4';
+let currentBackgroundColor = '#88abda';
 window.onload = () => {
     colors.map(color => {
         const li = document.createElement('li');
